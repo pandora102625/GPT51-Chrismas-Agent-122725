@@ -1,0 +1,37 @@
+pipeline:
+  template: ""       # can be overridden in UI
+  observations: ""   # can be overridden in UI
+  agents:
+    - id: layout-mapper
+      name: "Layout Mapper"
+      provider: "gemini"
+      model: "gemini-2.5-flash"
+      max_tokens: 8096
+      temperature: 0.1
+      user_prompt: |
+        根據提供的模板與觀察紀錄，please keep all original observations text in traditional chinese and rearrange according to the article A form in markdown. Please seperate the original observations text fomr the article A context. Observations:
+      system_prompt_suffix: |
+        使用繁體中文 in Markdown with observation text in coral color。
+
+    - id: car-writer
+      name: "CAR / Findings Writer"
+      provider: "gemini"
+      model: "gemini-2.5-flash"
+      max_tokens: 8096
+      temperature: 0.2
+      user_prompt: |
+        依據前一階段產生的報告結構與觀察紀錄，撰寫具體的稽核發現與矯正措施建議（CAR）。
+        明確區分符合事項、不符合事項與觀察項。
+      system_prompt_suffix: |
+        使用專業稽核用語，並將條列項與表格以 Markdown 表達。
+
+    - id: polish
+      name: "Polisher / Finalizer"
+      provider: "gemini"
+      model: "gemini-2.5-flash-lite"
+      max_tokens: 8096
+      temperature: 0.3
+      user_prompt: |
+        針對前一階段產出的完整報告，進行語氣潤飾、一致性修正、格式統一以及 ISO 13485 條文對應補充。
+      system_prompt_suffix: |
+        嚴格保留既有 Markdown 結構，僅在內容層面進行優化。

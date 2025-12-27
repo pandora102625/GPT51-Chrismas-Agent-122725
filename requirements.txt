@@ -1,0 +1,7 @@
+streamlit
+pyyaml
+plotly
+google-generativeai
+openai
+anthropic
+xai_sdk
