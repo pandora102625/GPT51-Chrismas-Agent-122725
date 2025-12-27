@@ -1623,7 +1623,7 @@ def main():
         colL, colR = st.columns(2)
 
         with colL:
-            st.session_state.note_raw = st.text_area(
+            note_raw = st.text_area(
                 labels["note_raw"],
                 value=st.session_state.note_raw,
                 height=260,
@@ -1790,7 +1790,7 @@ def main():
         # --- SKILL Authoring
         with col_topL:
             st.markdown("#### 1. " + labels["skill_instr_title"])
-            st.session_state.skill_instr = st.text_area(
+            skill_instr = st.text_area(
                 labels["skill_instr_title"],
                 value=st.session_state.skill_instr,
                 height=200,
